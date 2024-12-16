@@ -1,4 +1,4 @@
 Libraries required:
 
 streamlit
-from huggingface_hub import InferenceClient
+huggingface_hub
