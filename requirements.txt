@@ -1,0 +1,4 @@
+Libraries required:
+
+streamlit
+from huggingface_hub import InferenceClient
