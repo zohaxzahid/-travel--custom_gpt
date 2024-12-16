@@ -1,4 +1,2 @@
-Libraries required:
-
 streamlit
 huggingface_hub
