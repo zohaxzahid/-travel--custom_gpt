@@ -65,28 +65,17 @@ model_mapping = {
 }
 selected_model_id = model_mapping.get(selected_model, "meta-llama/Llama-3.2-1B-Instruct")
 
-def is_travel_related(query):
-    travel_keywords = [
-        "travel", "tourism", "vacation", "trip", "holiday", "destination",
-        "hotel", "flight", "tourist", "guide", "landmark", "attraction",
-        "itinerary", "sightseeing", "adventure", "culture", "explore"
-    ]
-    return any(keyword in query.lower() for keyword in travel_keywords)
-
 # Handle user input and generate a response
 if user_query:
-    if is_travel_related(user_query):
-        try:
-            response = client.chat.completions.create(
-                model=selected_model_id,
-                messages=[{"role": "user", "content": user_query}],
-                max_tokens=600
-            )
-            # Extract model's response
-            model_reply = response["choices"][0]["message"]["content"]
-            st.markdown(f"### **{selected_model}'s Response:**", unsafe_allow_html=True)
-            st.markdown(f"<div class='stMarkdown'>{model_reply}</div>", unsafe_allow_html=True)
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-    else:
-        st.markdown("### I cannot answer this. Please ask a travel or tourism-related question.", unsafe_allow_html=True)
+    try:
+        response = client.chat.completions.create(
+            model=selected_model_id,
+            messages=[{"role": "user", "content": user_query}],
+            max_tokens=600
+        )
+        # Extract model's response
+        model_reply = response["choices"][0]["message"]["content"]
+        st.markdown(f"### **{selected_model}'s Response:**", unsafe_allow_html=True)
+        st.markdown(f"<div class='stMarkdown'>{model_reply}</div>", unsafe_allow_html=True)
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
